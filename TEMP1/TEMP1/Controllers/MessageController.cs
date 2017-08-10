@@ -20,6 +20,7 @@ namespace TEMP1.Controllers
             {
                 var message = update.Message;
                 var client = await Bot.Get();
+                await client.SendTextMessageAsync(message.Chat.Id, "HI");
                 await client.SendTextMessageAsync(message.Chat.Id, message.Text);
             }
             return Ok();
