@@ -27,11 +27,13 @@ namespace TEMP1.Controllers
                     await client.SendTextMessageAsync(message.Chat.Id, message.Text);
                     if (message.Text == "time")
                     {
+                        long id = message.Chat.Id;
                         System.Timers.Timer t = new System.Timers.Timer(5000);
                         t.Elapsed += async (s, e) =>
                         {
-                            await client.SendTextMessageAsync(message.Chat.Id, DateTime.Now.ToShortTimeString());
+                            await client.SendTextMessageAsync(id, DateTime.Now.ToShortTimeString());
                         };
+                        t.Start();
                         Bot.timers.Add(new System.Timers.Timer());
                     }
                 }
