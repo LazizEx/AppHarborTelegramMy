@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 using TEMP1.Models;
 
 namespace TEMP1.Controllers
@@ -31,6 +32,26 @@ namespace TEMP1.Controllers
                     await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
                     break;
                 case UpdateType.MessageUpdate:
+                    if (message.Text.StartsWith("/"))
+                    {
+                        await client.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+
+                        var keyboard = new InlineKeyboardMarkup(new[]
+                                     {
+                                    new[]
+                                    {
+                                        new InlineKeyboardButton{ Text="1.1", Url="https://vk.com/"},
+                                        new InlineKeyboardButton{Text="1.2",SwitchInlineQuery = "1.2"},
+                                    },
+                                    new[]
+                                    {
+                                        new InlineKeyboardButton{Text="2.1",CallbackData="he"},
+                                        //new InlineKeyboardButton{Text="2.2",CallbackData="2.2"},
+                                    }
+                                });
+                        await Task.Delay(500);
+                        await client.SendTextMessageAsync(message.Chat.Id, "Choose", replyMarkup: keyboard);
+                    }
                     await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
                     break;
                 case UpdateType.InlineQueryUpdate:
