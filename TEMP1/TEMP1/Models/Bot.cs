@@ -12,7 +12,8 @@ namespace TEMP1.Models
     {
         private static TelegramBotClient client;
 
-        public static List<Timer> timers = new List<Timer>();
+        //public static List<Timer> timers = new List<Timer>();
+        public static long Id;
 
         public static List<string> textList = new List<string>();
 

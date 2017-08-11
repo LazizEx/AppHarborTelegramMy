@@ -182,6 +182,8 @@
     </Compile>
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\Bot.cs" />
+    <Compile Include="Models\Jobs\EmailScheduler.cs" />
+    <Compile Include="Models\Jobs\EmailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

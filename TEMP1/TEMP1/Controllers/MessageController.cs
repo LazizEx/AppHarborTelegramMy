@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InlineKeyboardButtons;
 using Telegram.Bot.Types.ReplyMarkups;
 using TEMP1.Models;
+using TEMP1.Models.Jobs;
 
 namespace TEMP1.Controllers
 {
@@ -27,20 +29,23 @@ namespace TEMP1.Controllers
                     await client.SendTextMessageAsync(message.Chat.Id, message.Text);
                     if (message.Text == "time")
                     {
-                        long id = message.Chat.Id;
-                        System.Timers.Timer t = new System.Timers.Timer(5000);
-                        t.Elapsed += async (s, e) =>
-                        {
-                            await client.SendTextMessageAsync(id, DateTime.Now.ToShortTimeString());
-                        };
-                        t.Start();
-                        Bot.timers.Add(new System.Timers.Timer());
+                        //long id = message.Chat.Id;
+                        //System.Timers.Timer t = new System.Timers.Timer(5000);
+                        //t.Elapsed += async (s, e) =>
+                        //{
+                        //    await client.SendTextMessageAsync(id, DateTime.Now.ToShortTimeString());
+                        //};
+                        //t.Start();
+                        ////Bot.timers.Add(new System.Timers.Timer());
+                        Bot.Id = message.Chat.Id;
+                        // запуск выполнения работы
+                        EmailScheduler.Start();
                     }
                 }
 
                 switch (update.Type)
                 {
-                    case UpdateType.UnkownUpdate:
+                    case UpdateType.UnknownUpdate:
                         await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
                         break;
                     case UpdateType.MessageUpdate:
@@ -48,21 +53,26 @@ namespace TEMP1.Controllers
                         {
                             await client.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
 
-                            var keyboard = new InlineKeyboardMarkup(new[]
-                                         {
-                                    new[]
-                                    {
-                                        new InlineKeyboardButton{ Text="1.1", Url="https://vk.com/" },
-                                        new InlineKeyboardButton{ Text="1.2", SwitchInlineQuery = "1.2" },
-                                    },
-                                    new[]
-                                    {
-                                        new InlineKeyboardButton{ Text="2.1", CallbackData="he" },
-                                        new InlineKeyboardButton{ Text="2.2", SwitchInlineQuery ="2.2" },
-                                    }
-                                });
+                            InlineKeyboardButton[][] k = new InlineKeyboardButton[][] { new InlineKeyboardButton[] { }  };
+                            var keyboard1 = new InlineKeyboardMarkup(k);
+                            
+
+                            //var keyboard = new InlineKeyboardMarkup(new[]
+                            //             {
+                            //        new[]
+                            //        {
+                                        
+                            //            new InlineKeyboardButton{ Text="1.1", Url="https://vk.com/" },
+                            //            new InlineKeyboardButton{ Text="1.2", SwitchInlineQuery = "1.2" },
+                            //        },
+                            //        new[]
+                            //        {
+                            //            new InlineKeyboardButton{ Text="2.1", CallbackData="he" },
+                            //            new InlineKeyboardButton{ Text="2.2", SwitchInlineQuery ="2.2" },
+                            //        }
+                            //    });
                             await Task.Delay(500);
-                            await client.SendTextMessageAsync(message.Chat.Id, "Choose", replyMarkup: keyboard);
+                            await client.SendTextMessageAsync(message.Chat.Id, "Choose", replyMarkup: keyboard1);
                         }
                         await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
                         break;
@@ -90,6 +100,12 @@ namespace TEMP1.Controllers
             }
 
             return Ok();
+        }
+        class Keyb : InlineKeyboardButton
+        {
+            public Keyb(string text) : base(text)
+            {
+            }
         }
     }
 }

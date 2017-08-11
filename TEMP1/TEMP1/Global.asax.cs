@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using TEMP1.Models;
+using TEMP1.Models.Jobs;
 
 namespace TEMP1
 {
@@ -22,6 +23,9 @@ namespace TEMP1
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Bot.Get().Wait();
+
+            // запуск выполнения работы
+            //EmailScheduler.Start();
         }
 
         protected void Application_End(object sender, EventArgs e)
