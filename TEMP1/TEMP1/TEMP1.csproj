@@ -184,6 +184,8 @@
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\Jobs\EmailScheduler.cs" />
     <Compile Include="Models\Jobs\EmailSender.cs" />
+    <Compile Include="Models\PoolAntiSleep\KeepAliveJob.cs" />
+    <Compile Include="Models\PoolAntiSleep\keepAliveScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

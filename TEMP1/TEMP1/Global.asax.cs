@@ -10,6 +10,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using TEMP1.Models;
 using TEMP1.Models.Jobs;
+using TEMP1.Models.PoolAntiSleep;
 
 namespace TEMP1
 {
@@ -26,6 +27,7 @@ namespace TEMP1
 
             // запуск выполнения работы
             //EmailScheduler.Start();
+            keepAliveScheduler.Start();
         }
 
         protected void Application_End(object sender, EventArgs e)

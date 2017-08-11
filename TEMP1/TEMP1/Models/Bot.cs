@@ -14,6 +14,7 @@ namespace TEMP1.Models
 
         //public static List<Timer> timers = new List<Timer>();
         public static long Id;
+        public static DateTime SchedulerStartTime;
 
         public static List<string> textList = new List<string>();
 

@@ -13,7 +13,8 @@ namespace TEMP1.Models.Jobs
         public async void Execute(IJobExecutionContext context)
         {
             var client = await Bot.Get();
-            await client.SendTextMessageAsync(Bot.Id, DateTime.Now.ToShortTimeString());
+            var v = DateTime.Now - Bot.SchedulerStartTime;
+            await client.SendTextMessageAsync(Bot.Id, v.ToString(@"hh\:mm\:ss"));
             //using (MailMessage message = new MailMessage("admin@yandex.ru", "user@yandex.ru"))
             //{
             //    message.Subject = "Новостная рассылка";

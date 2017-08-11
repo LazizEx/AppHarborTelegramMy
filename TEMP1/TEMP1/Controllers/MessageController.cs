@@ -38,6 +38,7 @@ namespace TEMP1.Controllers
                         //t.Start();
                         ////Bot.timers.Add(new System.Timers.Timer());
                         Bot.Id = message.Chat.Id;
+                        Bot.SchedulerStartTime = DateTime.Now;
                         // запуск выполнения работы
                         EmailScheduler.Start();
                     }
