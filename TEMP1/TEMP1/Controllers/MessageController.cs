@@ -19,25 +19,26 @@ namespace TEMP1.Controllers
         {
             var client = await Bot.Get();
             var message = update.Message;
-
-            if (update.Message.Type == MessageType.TextMessage)
+            try
             {
-                await client.SendTextMessageAsync(message.Chat.Id, "HI");
-                await client.SendTextMessageAsync(message.Chat.Id, message.Text);
-            }
+                if (update.Message.Type == MessageType.TextMessage)
+                {
+                    await client.SendTextMessageAsync(message.Chat.Id, "HI");
+                    await client.SendTextMessageAsync(message.Chat.Id, message.Text);
+                }
 
-            switch (update.Type)
-            {
-                case UpdateType.UnkownUpdate:
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
-                case UpdateType.MessageUpdate:
-                    if (message.Text.StartsWith("/"))
-                    {
-                        await client.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+                switch (update.Type)
+                {
+                    case UpdateType.UnkownUpdate:
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                    case UpdateType.MessageUpdate:
+                        if (message.Text.StartsWith("/"))
+                        {
+                            await client.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
 
-                        var keyboard = new InlineKeyboardMarkup(new[]
-                                     {
+                            var keyboard = new InlineKeyboardMarkup(new[]
+                                         {
                                     new[]
                                     {
                                         new InlineKeyboardButton{ Text="1.1", Url="https://vk.com/" },
@@ -49,28 +50,34 @@ namespace TEMP1.Controllers
                                         new InlineKeyboardButton{ Text="2.2", SwitchInlineQuery ="2.2" },
                                     }
                                 });
-                        await Task.Delay(500);
-                        await client.SendTextMessageAsync(message.Chat.Id, "Choose", replyMarkup: keyboard);
-                    }
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
-                case UpdateType.InlineQueryUpdate:
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
-                case UpdateType.ChosenInlineResultUpdate:
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
-                case UpdateType.CallbackQueryUpdate:
-                    await client.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "test");
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
-                case UpdateType.EditedMessage:
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
-                default:
-                    await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
-                    break;
+                            await Task.Delay(500);
+                            await client.SendTextMessageAsync(message.Chat.Id, "Choose", replyMarkup: keyboard);
+                        }
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                    case UpdateType.InlineQueryUpdate:
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                    case UpdateType.ChosenInlineResultUpdate:
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                    case UpdateType.CallbackQueryUpdate:
+                        await client.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "test");
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                    case UpdateType.EditedMessage:
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                    default:
+                        await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                await client.SendTextMessageAsync(message.Chat.Id, ex.ToString());
+            }
+
             return Ok();
         }
     }
