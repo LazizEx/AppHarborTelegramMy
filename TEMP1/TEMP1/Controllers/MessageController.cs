@@ -40,13 +40,13 @@ namespace TEMP1.Controllers
                                      {
                                     new[]
                                     {
-                                        new InlineKeyboardButton{ Text="1.1", Url="https://vk.com/"},
-                                        new InlineKeyboardButton{Text="1.2",SwitchInlineQuery = "1.2"},
+                                        new InlineKeyboardButton{ Text="1.1", Url="https://vk.com/" },
+                                        new InlineKeyboardButton{ Text="1.2", SwitchInlineQuery = "1.2" },
                                     },
                                     new[]
                                     {
-                                        new InlineKeyboardButton{Text="2.1",CallbackData="he"},
-                                        //new InlineKeyboardButton{Text="2.2",CallbackData="2.2"},
+                                        new InlineKeyboardButton{ Text="2.1", CallbackData="he" },
+                                        new InlineKeyboardButton{ Text="2.2", SwitchInlineQuery ="2.2" },
                                     }
                                 });
                         await Task.Delay(500);
