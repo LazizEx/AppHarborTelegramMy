@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Web;
 using Telegram.Bot;
 
@@ -11,8 +12,7 @@ namespace TEMP1.Models
     {
         private static TelegramBotClient client;
 
-        //private static List<Command> commandList;
-        //public static IReadOnlyList<Command> Commands => commandList.AsReadOnly();
+        public static List<Timer> timers = new List<Timer>();
 
         public static List<string> textList = new List<string>();
 
