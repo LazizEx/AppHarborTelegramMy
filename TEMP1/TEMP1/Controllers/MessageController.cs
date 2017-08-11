@@ -61,6 +61,7 @@ namespace TEMP1.Controllers
                     await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
                     break;
                 case UpdateType.CallbackQueryUpdate:
+                    await client.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "test");
                     await client.SendTextMessageAsync(message.Chat.Id, update.Type.ToString());
                     break;
                 case UpdateType.EditedMessage:
